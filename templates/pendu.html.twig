@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pendu{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <h3>{{ gameMechanics.hiddenWord }}</h3>
+
+    <p>
+        <span>Tester une lettre: </span><br/>
+    {% for letter in 'A'..'Z' %}
+        <a href="{{ path('pendu_try_letter', {'letter': letter}) }}">{{ letter }}</a>&nbsp;
+    {% endfor %}
+    </p>
+
+{% endblock %}

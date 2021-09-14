@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chuck{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% for message in app.flashes('error') %}
+        <p style="font-weight:bold; color: red;">{{ message }}</p>
+    {% endfor %}
+    <p>{{ blague }}</p>
+{% endblock %}

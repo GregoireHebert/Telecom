@@ -17,6 +17,13 @@ framework:
     php_errors:
         log: true
 
+    ide: 'phpstorm://open?url=file://%%f&line=%%l'
+
+    http_client:
+        scoped_clients:
+            chuck.client:
+                base_uri: 'https://api.chucknorris.io'
+
 when@test:
     framework:
         test: true
