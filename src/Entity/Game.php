@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 final class Game
 {
     public const MAX_TRIALS = 11;
@@ -11,8 +13,14 @@ final class Game
     public const STATUSES_WON = 'Gagné';
     public const STATUSES_LOST = 'Perdu';
 
+    /**
+     * @Assert\Length(min=2)
+     */
     private ?string $word = null;
     private array $triedLetters = [];
+    /**
+     * @Assert\Choice(choices={self::STATUSES_ONGOING, self::STATUSES_WON, self::STATUSES_LOST})
+     */
     private string $status = self::STATUSES_ONGOING;
 
     public function __construct(string $word)
@@ -32,13 +40,13 @@ final class Game
 
     public function setStatus(string $status): void
     {
-        $statuses = [self::STATUSES_LOST, self::STATUSES_ONGOING, self::STATUSES_WON];
-
-        if (!in_array($status, $statuses)) {
-            throw new \InvalidArgumentException(
-                sprintf('Invalid status, expected one of: %s', implode(', ', $statuses))
-            );
-        }
+//        $statuses = [self::STATUSES_LOST, self::STATUSES_ONGOING, self::STATUSES_WON];
+//
+//        if (!in_array($status, $statuses)) {
+//            throw new \InvalidArgumentException(
+//                sprintf('Invalid status, expected one of: %s', implode(', ', $statuses))
+//            );
+//        }
 
         // TODO use workflow to prevent mis-usage.
 

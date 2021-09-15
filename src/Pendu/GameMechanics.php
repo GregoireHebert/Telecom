@@ -6,17 +6,19 @@ namespace App\Pendu;
 
 use App\Entity\Game;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 final class GameMechanics
 {
     private SessionInterface $session;
-    private Game $game;
+    private ?Game $game = null;
+    private Stopwatch $stopwatch;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, Stopwatch $stopwatch)
     {
         $this->session = $session;
+        $this->stopwatch = $stopwatch;
         $this->init();
-        dump($this->game);
     }
 
     public function init(): Game
@@ -29,10 +31,15 @@ final class GameMechanics
         return $this->game;
     }
 
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
+
     public function tryLetter(string $letter) {
         $this->game->addLetter($letter);
 
-        if (strpos($this->getHiddenWord(), '_')) {
+        if (false === strpos($this->getHiddenWord(), '_')) {
             $this->game->setStatus(Game::STATUSES_WON);
         }
 
@@ -61,4 +68,8 @@ final class GameMechanics
         return implode(' ', $hiddenWord);
     }
 
+    public function getGameStatus(): string
+    {
+        return $this->game->getStatus();
+    }
 }

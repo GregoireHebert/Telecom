@@ -14,4 +14,13 @@
     {% endfor %}
     </p>
 
+    <p>
+        <span>Tester un mot :</span><br/>
+        {{ form_start(formulaire) }}
+        {{ form_error(formulaire.word) }}
+        {{ form_label(formulaire.word) }}
+        {{ form_widget(formulaire.word) }}
+        {{ form_end(formulaire) }}
+    </p>
+
 {% endblock %}
